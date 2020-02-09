@@ -36,6 +36,7 @@ public class LoginDDT {
 	
 	@DataProvider
 	public String[][] getData(){
+		System.out.println("getting Data from excel");
 		return(utilities.Excel.get("/Users/roopa/Documents/UserLogin.xls"));
 	}
 	
