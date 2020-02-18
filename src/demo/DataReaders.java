@@ -6,21 +6,21 @@ public class DataReaders {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		readCSV();
+		readCSV();
 		readXLS();
 		}
 		
-//	public static void readCSV() {
-//			
-//		String fileName ="/Users/roopa/Documents/UserAccounts.csv";
-// 		List <String[]> records = utilities.CSV.get(fileName);
-// 		for (String[] record : records) {
-// 			for (String field : record) {
-// 				System.out.println(field);
-// 			}
-// 		}
-//		
-//		}
+	public static void readCSV() {
+			
+		String fileName ="/Users/roopa/Documents/UserAccounts.csv";
+ 		List <String[]> records = utilities.CSV.get(fileName);
+ 		for (String[] record : records) {
+ 			for (String field : record) {
+ 				System.out.println(field);
+ 			}
+ 		}
+		
+		}
 	
 	
 	public static void readXLS() {
