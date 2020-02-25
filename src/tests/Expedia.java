@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,15 +19,8 @@ public class Expedia {
 	String checkOut = "10/02/2020";
 	int room = 2;
 	int adult = 5;
-	int child = 2;
-	int infant = 1;
-	int childAge =3;
-	WebElement addAdult, addChild, addInfant;
+	WebElement addAdult;
 	JavascriptExecutor updateTravelerJSE = (JavascriptExecutor)driver;
-	
-	
-	
-	
 	
 	@Test
 	public void hotelReservation() {
@@ -40,9 +35,12 @@ public class Expedia {
 		// add travelers - adult, child , infants
 		 // Add Adult
 		
-		if (adult > 2) {
-			addAdult = driver.findElement(By.xpath("//div[@class='traveler-selector-room-data target-clone-field']/div/div[4]/button"));
-			addAdultToRoom(updateTravelerJSE, addAdult);
+		if (adult > 2) { 
+			for(int i = 2; i<adult; i++) {
+			addAdult = driver.findElement(By.xpath("//div[@class='traveler-selector-room-data']/div/div[4]/button"));
+			updateTravelerJSE.executeScript("arguments[0].click();", addAdult);
+//			addAdultToRoom(updateTravelerJSE, addAdult);
+			}
 		}
 		else if (adult < 2) {
 			addAdult = driver.findElement(By.xpath("//div[@class='traveler-selector-room-data target-clone-field']/div/div[2]/button"));
@@ -50,17 +48,11 @@ public class Expedia {
 		} else {
 			System.out.println("Default value used");
 		}
+		driver.findElement(By.id("//*[@id=\"search-button-hp-package\"]")).click();
 		
-		
-		//add child
-		if (child>0) {
-			addChild = driver.findElement(By.xpath("//div[@class='traveler-selector-room-data target-clone-field']/div[@class='children-wrapper']/div/div[4]"));
-			addChildToRoom(updateTravelerJSE, addChild, childAge);
-		}else {
-			System.out.println("Default value used");
-		}
 		
 		// modify the search
+		
 		// analyse the result
 		// book the hotel
 		// fill out the details
@@ -70,10 +62,9 @@ public class Expedia {
 	}
 	
 	public void addAdultToRoom(JavascriptExecutor updateTravelerJSE, WebElement addAdult) {
-		for(int i = 2; i<adult; i++) {
+		
 			updateTravelerJSE.executeScript("arguments[0].click();", addAdult);
 			
-		}
 	}
 	
 	public void minusAdultToRoom(JavascriptExecutor updateTravelerJSE, WebElement addAdult) {
@@ -82,45 +73,7 @@ public class Expedia {
 			
 		}
 	}
-	
-	public void addChildToRoom(JavascriptExecutor updateTravelerJSE, WebElement addChild, int childAge ) {
-		for(int i =0; i<child; i++) {
-			updateTravelerJSE.executeScript("arguments[0].click();", addChild);
-	        String ageValue;
-	        switch (childAge) {
-	            case 1:  ageValue = "2";
-	                     break;
-	            case 2:  ageValue = "February";
-	                     break;
-	            case 3:  ageValue = "March";
-	                     break;
-	            case 4:  ageValue = "April";
-	                     break;
-	            case 5:  ageValue = "May";
-	                     break;
-	            case 6:  ageValue = "June";
-	                     break;
-	            case 7:  ageValue = "July";
-	                     break;
-	            case 8:  ageValue = "August";
-	                     break;
-	            case 9:  ageValue = "September";
-	                     break;
-	            case 10: ageValue = "October";
-	                     break;
-	            case 11: ageValue = "November";
-	                     break;
-	            case 12: ageValue = "December";
-	                     break;
-	            default: ageValue = "Invalid month";
-	                     break;
-	        }
-	        System.out.println(ageValue);
-			
-			
-			
-		}
-	}
+
 	
 
 	
@@ -129,6 +82,7 @@ public class Expedia {
 	public void setup() {
 		
 		driver = utilities.DriverFactory.open(browserType);
+		driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 		driver.get("https://www.expedia.co.uk");
 		
 	}
@@ -138,5 +92,5 @@ public class Expedia {
 		
 	}
 	
-	
+
 }
